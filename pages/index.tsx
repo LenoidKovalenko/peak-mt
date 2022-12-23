@@ -3,10 +3,7 @@ import { CategoryType, PostType } from "../types";
 import { useRouter } from "next/router";
 import * as data from "../data/blog.json";
 import Layout from "../components/layout";
-import SinglePost from "../components/single-post";
 import { loadPosts } from "../lib/load-posts";
-import { Search } from "../components/search";
-import { Filter } from "../components/filter";
 
 export async function getStaticProps() {
   const allPostsData = (await loadPosts("posts")) as unknown as PostType[];
@@ -68,16 +65,6 @@ export default function Home({
         Lorem Ipsum dolor sit ammet consectetur adipisicing elit, ipsa libera
         labore natus atque
       </p>
-      <div className="flex flex-col md:flex-row w-4/5 justify-around mb-4">
-        <Filter categoryData={allCategoriesData} />
-        <Search searchText={searchText} setSearchText={setSearchText} />
-      </div>
-      <ul className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {filteredData &&
-          postsData.map((item: PostType) => (
-            <SinglePost key={item.id} item={item} allCategoriesData={allCategoriesData} />
-          ))}
-      </ul>
       <div className="mt-8 flex justify-between w-full">
         <button
           className="p-8 border-solid border-2"
